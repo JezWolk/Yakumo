@@ -44,7 +44,7 @@ class DocsCommand extends Command {
             .addField('Version', lastestVersion.version, true)
             .addField('Creation Date', moment(body.time.created).format('L'), true)
             .addField('Modification Date', moment(body.time.modified).format('L'), true)
-            .addField('Maintainers', this.client.util.trimArray(maintainers, 10).join(', '));
+            .addField('Maintainers', this.client.YakumoUtil.trimArray(maintainers, 10).join(', '));
         message.util.send(embed);
     }
 }

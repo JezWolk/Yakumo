@@ -37,7 +37,7 @@ class HelpCommand extends Command {
             .setColor('BLUE');
 
         for (const category of this.client.commandHandler.categories) {
-            embed.addField(`❯ ${this.client.util.capitalize(category[0])}`, `${category[1].map(cmd => `\`${cmd.id}\``).join(' ')}`);
+            embed.addField(`❯ ${this.client.util.YakumoUtil(category[0])}`, `${category[1].map(cmd => `\`${cmd.id}\``).join(' ')}`);
         }
         
         return message.util.send(embed);
