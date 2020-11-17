@@ -10,7 +10,11 @@ class ClientUtil {
 			array.push(`${len} more...`);
 		}
 		return array;
-	}
+    }
+    
+    capitalize(string) {
+        return string.charAt(0).toUpperCase() + string.slice(1);
+    }
 
 }
 
