@@ -1,4 +1,4 @@
-const { AkairoClient, ListenerHandler } = require('discord-akairo');
+const { AkairoClient, ListenerHandler, CommandHandler } = require('discord-akairo');
 const { join } = require('path');
  
 class YakumoClient extends AkairoClient {
@@ -11,6 +11,15 @@ class YakumoClient extends AkairoClient {
 
         this.token = config.token;
 
+        this.commandHandler = new CommandHandler(this, {
+			directory: join(__dirname, '..', 'commands'),
+			prefix: config.prefix,
+            allowMention: true,
+            handleEdits: true,
+            commandUtil: true,
+            commandUtilLifetime: 3e5,
+		});
+
         this.listenerHandler = new ListenerHandler(this, { directory: join(__dirname, '..', 'events') });
 
         this.init();
@@ -18,6 +27,7 @@ class YakumoClient extends AkairoClient {
 
     init() {
         this.listenerHandler.loadAll();
+        this.commandHandler.loadAll();
     }
 
     start() {
