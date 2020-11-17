@@ -12,7 +12,7 @@ class YakumoClient extends AkairoClient {
 
         this.token = config.token;
 
-        this.util = new YakumoUtil(this);
+        this.YakumoUtil = new YakumoUtil(this);
 
         this.commandHandler = new CommandHandler(this, {
 			directory: join(__dirname, '..', 'commands'),
