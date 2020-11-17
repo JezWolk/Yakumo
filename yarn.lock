@@ -223,6 +223,11 @@ delayed-stream@~1.0.0:
   resolved "https://registry.yarnpkg.com/delayed-stream/-/delayed-stream-1.0.0.tgz#df3ae199acadfb7d440aaae0b29e2272b24ec619"
   integrity sha1-3zrhmayt+31ECqrgsp4icrJOxhk=
 
+discord-akairo@^8.1.0:
+  version "8.1.0"
+  resolved "https://registry.yarnpkg.com/discord-akairo/-/discord-akairo-8.1.0.tgz#9f3d910e12c197d40d3522a3a93679e2a746a6ca"
+  integrity sha512-INWYmHo6NgyYx1ZKGSCmgznVfvkXpWGj4fGCGjO8IPkZ06Bidb9YKr4rXy2lwG0kprCjvqY0qbbhcw6N050abQ==
+
 discord.js@^12.4.1:
   version "12.4.1"
   resolved "https://registry.yarnpkg.com/discord.js/-/discord.js-12.4.1.tgz#be88bb32caa9e41eae67749a4e2387585745ac3b"
