@@ -36,9 +36,7 @@ class DocsCommand extends Command {
         query = query.replace(RegExp(`\\s?--src=${project}`), '');
         const res = await fetch(`https://djsdocs.sorta.moe/v2/embed?src=${encodeURIComponent(project)}&q=${encodeURIComponent(query)}`);
         const embed = await res.json();
-        if (!embed) {
-            return message.util.send('No search results found, maybe try searching for something that exists.');
-        }
+        if (!embed) return message.util.send('No search results found, maybe try searching for something that exists.');
         message.util.send({ embed: embed });
     }
 }
