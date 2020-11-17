@@ -1,12 +1,12 @@
 {
   "name": "yakumo",
   "version": "1.0.0",
-  "main": "./src/index.js",
+  "main": "./src/yakumo.js",
   "repository": "https://github.com/iColtz/Yakumo.git",
   "author": "iColtz <max.hurst@hotmail.com>",
   "license": "MIT",
   "scripts": {
-    "dev": "nodemon ./src/index.js"
+    "dev": "nodemon ./src/yakumo.js"
   },
   "devDependencies": {
     "eslint": "^7.13.0",
