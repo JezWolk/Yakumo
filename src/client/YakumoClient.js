@@ -1,4 +1,5 @@
 const { AkairoClient, ListenerHandler, CommandHandler } = require('discord-akairo');
+const YakumoUtil = require('./util/YakumoUtil');
 const { join } = require('path');
  
 class YakumoClient extends AkairoClient {
@@ -10,6 +11,8 @@ class YakumoClient extends AkairoClient {
         });
 
         this.token = config.token;
+
+        this.util = new YakumoUtil(this);
 
         this.commandHandler = new CommandHandler(this, {
 			directory: join(__dirname, '..', 'commands'),
