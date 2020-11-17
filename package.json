@@ -4,5 +4,9 @@
   "main": "index.js",
   "repository": "https://github.com/iColtz/Yakumo.git",
   "author": "iColtz <max.hurst@hotmail.com>",
-  "license": "MIT"
+  "license": "MIT",
+  "devDependencies": {
+    "eslint": "^7.13.0",
+    "prettier": "^2.1.2"
+  }
 }
