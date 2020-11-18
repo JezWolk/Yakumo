@@ -1,4 +1,5 @@
 const { Argument, Command } = require('discord-akairo');
+const { stripIndents } = require('common-tags');
 
 class BanCommand extends Command {
     constructor() {
@@ -50,6 +51,13 @@ class BanCommand extends Command {
         const banMessage = await message.channel.send(`Banning **${user.tag}**...`);
         try {
             message.guild.members.ban(user.id, { days: days, reason: reason });
+            try {
+                await user.send(stripIndents`
+                    You have been banned from **${message.guild.name}**
+                    Contact staff to apply for unban if you think this is unworthy.
+                `);
+            }
+            catch { } // eslint-disable-line no-empty, brace-style
             banMessage.edit(`Sucessfully banned **${member.user.tag}**`);
         }
         catch (error) {
