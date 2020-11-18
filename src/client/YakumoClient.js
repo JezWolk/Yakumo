@@ -2,6 +2,7 @@ const { AkairoClient, ListenerHandler, CommandHandler } = require('discord-akair
 const DataBase = require('../structures/DataBase.js');
 const YakumoUtil = require('./util/YakumoUtil');
 const Models = require('../models/export/index.js');
+const MuteHandler = require('../structures/handlers/MuteHandler.js');
 const { join } = require('path');
 
 class YakumoClient extends AkairoClient {
@@ -19,6 +20,8 @@ class YakumoClient extends AkairoClient {
         this.models = Models;
 
         this.YakumoUtil = new YakumoUtil(this);
+
+        this.muteHandler = new MuteHandler(this);
 
         this.commandHandler = new CommandHandler(this, {
             directory: join(__dirname, '..', 'commands'),

@@ -36,18 +36,23 @@ class MuteCommand extends Command {
             ],
         });
     }
-    // eslint-disable-next-line no-unused-vars
+
     async exec(message, { member, time }) {
         if (member.roles.highest.rawPosition >= message.member.roles.highest.rawPosition) {
             return message.channel.send('You know you can\'t mute this member, so why bother trying.');
         }
         const muteMessage = await message.channel.send(`Muting **${member.user.tag}**...`);
         try {
-            // TODO: Handle the mute
-            muteMessage.edit('Mute Handler Not Complete Yet!');
+            await this.client.muteHandler.addMute(member, message.guild, time);
+            muteMessage.edit(`Sucessfully muted **${member.user.tag}**`);
         }
         catch (error) {
-            console.log(error);
+            if (!error.message.startsWith('E11000 duplicate key error collection:')) {
+                console.log(error);
+            }
+            else {
+                muteMessage.edit(`**${member.user.tag}** is already muted.`);
+            }
         }
     }
 }
