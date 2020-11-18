@@ -16,11 +16,11 @@ class DocsCommand extends Command {
             category: 'docs',
             args: [
                 {
-					id: 'pkg',
-					match: 'content',
-					type: 'lowercase',
-					prompt: {
-						start: message => `${message.author}, what would you like to search?`,
+                    id: 'pkg',
+                    match: 'content',
+                    type: 'lowercase',
+                    prompt: {
+                        start: message => `${message.author}, what would you like to search?`,
                     },
                 },
             ],

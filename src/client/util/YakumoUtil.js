@@ -4,14 +4,14 @@ class ClientUtil {
     }
 
     trimArray(array, trim) {
-		if (array.length > trim) {
-			const len = array.length - trim;
-			array = array.slice(0, trim);
-			array.push(`${len} more...`);
-		}
-		return array;
+        if (array.length > trim) {
+            const len = array.length - trim;
+            array = array.slice(0, trim);
+            array.push(`${len} more...`);
+        }
+        return array;
     }
-    
+
     capitalize(string) {
         return string.charAt(0).toUpperCase() + string.slice(1);
     }

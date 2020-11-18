@@ -26,6 +26,13 @@ class BanCommand extends Command {
                     },
                 },
                 {
+                    id: 'days',
+                    type: 'integer',
+                    match: 'option',
+                    flag: ['--days=', '-d='],
+                    default: 1,
+                },
+                {
                     id: 'reason',
                     match: 'rest',
                     type: 'string',
@@ -35,14 +42,15 @@ class BanCommand extends Command {
         });
     }
 
-    async exec(message, { user, reason }) {
+    async exec(message, { user, days, reason }) {
+        console.log(days);
         const member = message.guild.member(user.id);
         if (member && member.roles.highest.rawPosition >= message.member.roles.highest.rawPosition) {
             return message.channel.send('You know you can\'t ban this member, so why bother trying.');
         }
         const banMessage = await message.channel.send(`Banning **${user.tag}**...`);
         try {
-            message.guild.members.ban(user.id, { reason: reason });
+            message.guild.members.ban(user.id, { days: days, reason: reason });
             banMessage.edit(`Sucessfully banned **${member.user.tag}**`);
         }
         catch (error) {
