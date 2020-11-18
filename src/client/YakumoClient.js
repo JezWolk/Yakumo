@@ -1,5 +1,5 @@
 const { AkairoClient, ListenerHandler, CommandHandler } = require('discord-akairo');
-const DataBase = require('../database/DataBase.js');
+const DataBase = require('../structures/DataBase.js');
 const YakumoUtil = require('./util/YakumoUtil');
 const { join } = require('path');
 
