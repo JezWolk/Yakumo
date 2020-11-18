@@ -12,6 +12,14 @@ class MuteHandler {
 
         await muteDoc.save();
     }
+
+    async check(guild) {
+        try {
+            const guildDoc = await this.client.models.muteModel.find({ guildID: guild });
+            return guildDoc || [];
+        }
+        catch (error) { console.log(error); }
+    }
 }
 
 module.exports = MuteHandler;
