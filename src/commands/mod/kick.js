@@ -1,4 +1,5 @@
 const { Command } = require('discord-akairo');
+const { stripIndents } = require('common-tags');
 
 class KickCommand extends Command {
     constructor() {
@@ -14,10 +15,10 @@ class KickCommand extends Command {
             category: 'mod',
             args: [
                 {
-					id: 'member',
-					type: 'member',
-					prompt: {
-						start: message => `${message.author}, what member would you like to kick?`,
+                    id: 'member',
+                    type: 'member',
+                    prompt: {
+                        start: message => `${message.author}, what member would you like to kick?`,
                     },
                 },
                 {
@@ -37,6 +38,13 @@ class KickCommand extends Command {
         const kickMessage = await message.channel.send(`Kicking **${member.user.tag}**...`);
         try {
             member.kick([reason]);
+            try {
+                await member.send(stripIndents`
+                    You have been kicked from **${message.guild.name}**
+                    You may join back when ever you wish.
+                `);
+            }
+            catch { } // eslint-disable-line no-empty, brace-style
             kickMessage.edit(`Sucessfully kicked **${member.user.tag}**`);
         }
         catch (error) {
