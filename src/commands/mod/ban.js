@@ -43,7 +43,6 @@ class BanCommand extends Command {
     }
 
     async exec(message, { user, days, reason }) {
-        console.log(days);
         const member = message.guild.member(user.id);
         if (member && member.roles.highest.rawPosition >= message.member.roles.highest.rawPosition) {
             return message.channel.send('You know you can\'t ban this member, so why bother trying.');
