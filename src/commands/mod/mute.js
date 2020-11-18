@@ -44,6 +44,14 @@ class MuteCommand extends Command {
         const muteMessage = await message.channel.send(`Muting **${member.user.tag}**...`);
         try {
             await this.client.muteHandler.addMute(member, message.guild, time);
+            try {
+                const mutedRole = await message.guild.roles.fetch(this.client.settings.mutedRole);
+                member.roles.add(mutedRole.id);
+            }
+            catch (error) {
+                message.channel.send('There was an error while giving the muted role.');
+                console.log(error);
+            }
             muteMessage.edit(`Sucessfully muted **${member.user.tag}**`);
         }
         catch (error) {
