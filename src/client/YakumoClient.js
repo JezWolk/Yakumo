@@ -1,4 +1,5 @@
 const { AkairoClient, ListenerHandler, CommandHandler } = require('discord-akairo');
+const DataBase = require('../database/DataBase.js');
 const YakumoUtil = require('./util/YakumoUtil');
 const { join } = require('path');
 
@@ -11,6 +12,8 @@ class YakumoClient extends AkairoClient {
         });
 
         this.token = config.token;
+
+        this.mongoUri = config.mongoUri;
 
         this.YakumoUtil = new YakumoUtil(this);
 
@@ -35,6 +38,7 @@ class YakumoClient extends AkairoClient {
 
     start() {
         this.login(this.token);
+        DataBase(this.mongoUri);
     }
 }
 
