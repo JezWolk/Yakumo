@@ -16,7 +16,7 @@ class BanCommand extends Command {
             args: [
                 {
                     id: 'user',
-                    type: Argument.union('member', async (_, input) => {
+                    type: Argument.union('user', async (_, input) => {
                         try {
                             const user = await this.client.users.fetch(input);
                             return user || null;
@@ -58,7 +58,7 @@ class BanCommand extends Command {
                 `);
             }
             catch { } // eslint-disable-line no-empty, brace-style
-            banMessage.edit(`Sucessfully banned **${member.user.tag}**`);
+            banMessage.edit(`Sucessfully banned **${user.tag}**`);
         }
         catch (error) {
             console.log(error);
