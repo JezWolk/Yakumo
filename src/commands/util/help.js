@@ -28,7 +28,7 @@ class HelpCommand extends Command {
 
             if (command.description.content) embed.addField('Description', command.description.content);
             if (command.aliases.length > 1) embed.addField('Aliases', command.aliases.slice(1).map(a => `\`${a}\``).join(', '), true);
-            if (command.description.examples && command.description.examples.length) embed.addField('Examples', command.description.examples.map(e => `\`${e}\``).join('\n'), true);
+            if (command.description.examples && command.description.examples.length) embed.addField('Examples', command.description.examples.map(e => `\`${command.id} ${e}\``).join('\n'), true);
 
             return message.util.send(embed);
         }
