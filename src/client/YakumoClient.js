@@ -19,6 +19,8 @@ class YakumoClient extends AkairoClient {
 
         this.models = Models;
 
+        this.settings = config.settings;
+
         this.YakumoUtil = new YakumoUtil(this);
 
         this.muteHandler = new MuteHandler(this);
