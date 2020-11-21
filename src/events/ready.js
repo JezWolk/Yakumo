@@ -13,9 +13,9 @@ class ReadyListener extends Listener {
 
         for (const guild of this.client.guilds.cache) {
             const guildModel = this.client.models.guild;
-            let guildDoc = await guildModel.findOne({ guildID: guild[0] });
+            let guildDoc = await guildModel.findOne({ guild_id: guild[0] });
             if (!guildDoc) {
-                guildDoc = new guildModel({ guildID: guild[0] });
+                guildDoc = new guildModel({ guild_id: guild[0] });
                 await guildDoc.save();
             }
         }

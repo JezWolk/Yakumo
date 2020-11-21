@@ -1,12 +1,12 @@
 const { Schema, model } = require('mongoose');
 
 const guildSchema = new Schema({
-    guildID: {
+    guild_id: {
         type: String,
         required: true,
         unique: true,
     },
-    caseCount: {
+    case_number: {
         type: Number,
         required: true,
         default: 0,
