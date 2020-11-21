@@ -2,6 +2,8 @@ class MuteHandler {
     constructor(client) {
         this.client = client;
 
+        this.muteModel = this.client.models.mute;
+
         setInterval(async () => {
             for (const guild of this.client.guilds.cache) {
                 const mutedArray = await this.check(guild[0]);
@@ -30,7 +32,7 @@ class MuteHandler {
     }
 
     async addMute(member, guild, duration) {
-        const muteDoc = new this.client.models.muteModel({
+        const muteDoc = new this.muteModel({
             userID: member.id,
             guildID: guild.id,
             expiryDate: new Date(Date.now() + duration),
@@ -41,7 +43,7 @@ class MuteHandler {
 
     async check(guild) {
         try {
-            const guildDoc = await this.client.models.muteModel.find({ guildID: guild });
+            const guildDoc = await this.muteModel.find({ guildID: guild });
             return guildDoc || [];
         }
         catch (error) { console.log(error); }
