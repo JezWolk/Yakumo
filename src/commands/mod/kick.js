@@ -37,7 +37,7 @@ class KickCommand extends Command {
         }
         const kickMessage = await message.channel.send(`Kicking **${member.user.tag}**...`);
         try {
-            member.kick([reason]);
+            await member.kick([reason]);
             try {
                 await member.send(stripIndents`
                     You have been kicked from **${message.guild.name}**

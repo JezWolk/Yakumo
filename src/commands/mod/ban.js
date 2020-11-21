@@ -50,7 +50,7 @@ class BanCommand extends Command {
         }
         const banMessage = await message.channel.send(`Banning **${user.tag}**...`);
         try {
-            message.guild.members.ban(user.id, { days: days, reason: reason });
+            await message.guild.members.ban(user.id, { days: days, reason: reason });
             try {
                 await user.send(stripIndents`
                     You have been banned from **${message.guild.name}**
