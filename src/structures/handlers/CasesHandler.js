@@ -11,18 +11,19 @@ class CasesHandler {
 
     async updateCaseCount(guild) {
         try {
-            await this.guildModel.findOneAndUpdate({
+            const guildDoc = await this.guildModel.findOneAndUpdate({
                 guildID: guild.id,
             }, {
                 $inc: { caseCount: 1 },
             });
+            return guildDoc.caseCount + 1;
         }
         catch (error) {
             console.log(error);
         }
     }
 
-    async sendModlog(guild, data) {
+    async sendModlog(guild, data, caseCount) {
         const { action, mod, target, reason } = data;
         const modlogChannel = guild.channels.cache.get(this.client.settings.modlog);
         const modlog = new MessageEmbed()
@@ -30,12 +31,18 @@ class CasesHandler {
             .setAuthor(`${mod.tag} - (${mod.id})`, mod.displayAvatarURL({ format: 'png', dynamic: true }))
             .setThumbnail(target.user.displayAvatarURL({ format: 'png', dynamic: true }))
             .setTimestamp(Date.now())
+            .setFooter(`Case: ${caseCount}`)
             .setDescription(stripIndents`
                 **Member:** ${target.user.tag} - (${target.id})
                 **Action:** ${this.client.YakumoUtil.capitalize(action)}
                 **Reason:** ${reason || 'Not Specified'}
             `);
         modlogChannel.send(modlog);
+    }
+
+    async newCase(guild, data) {
+        const caseCount = await this.updateCaseCount(guild);
+        this.sendModlog(guild, data, caseCount);
     }
 }
 
