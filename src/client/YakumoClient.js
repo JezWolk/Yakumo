@@ -3,6 +3,7 @@ const DataBase = require('../structures/DataBase.js');
 const YakumoUtil = require('./util/YakumoUtil');
 const Models = require('../models/export/index.js');
 const MuteHandler = require('../structures/handlers/MuteHandler.js');
+const CasesHandler = require('../structures/handlers/CasesHandler.js');
 const { join } = require('path');
 
 class YakumoClient extends AkairoClient {
@@ -24,6 +25,8 @@ class YakumoClient extends AkairoClient {
         this.YakumoUtil = new YakumoUtil(this);
 
         this.muteHandler = new MuteHandler(this);
+
+        this.casesHandler = new CasesHandler(this);
 
         this.commandHandler = new CommandHandler(this, {
             directory: join(__dirname, '..', 'commands'),
