@@ -37,7 +37,7 @@ class KickCommand extends Command {
         }
         const kickMessage = await message.channel.send(`Kicking **${member.user.tag}**...`);
         try {
-            await member.kick([reason]);
+            // await member.kick([reason]);
             try {
                 await member.send(stripIndents`
                     You have been kicked from **${message.guild.name}**
@@ -45,6 +45,12 @@ class KickCommand extends Command {
                 `);
             }
             catch { } // eslint-disable-line no-empty, brace-style
+            this.client.casesHandler.newCase(message.guild, {
+                mod: message.author,
+                target: member,
+                action: this.aliases[0],
+                reason: reason,
+            });
             kickMessage.edit(`Sucessfully kicked **${member.user.tag}**`);
         }
         catch (error) {
