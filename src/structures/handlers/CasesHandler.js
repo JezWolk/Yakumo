@@ -1,6 +1,7 @@
 const { MessageEmbed } = require('discord.js');
 const { stripIndents } = require('common-tags');
 const { MODLOG_COLORS } = require('../../Constants.js');
+const ms = require('ms');
 
 class CasesHandler {
     constructor(client) {
@@ -25,7 +26,7 @@ class CasesHandler {
         }
     }
 
-    async buildEmbed(mod, target, action, reason, caseNumber) {
+    async buildEmbed(mod, target, action, reason, duration, caseNumber) {
         return new MessageEmbed()
             .setColor(MODLOG_COLORS[action.toUpperCase()])
             .setAuthor(`${mod.tag} - (${mod.id})`, mod.displayAvatarURL({ format: 'png', dynamic: true }))
@@ -36,13 +37,14 @@ class CasesHandler {
                 **Member:** ${target.user.tag} - (${target.id})
                 **Action:** ${this.client.YakumoUtil.capitalize(action)}
                 **Reason:** ${reason || 'Not Specified'}
+                ${duration ? `**Duration:** ${ms(duration)}` : ''}
             `));
     }
 
     async newCase(guild, data) {
-        const { mod, target, action, reason } = data;
+        const { mod, target, action, reason, duration = null } = data;
         const caseNumber = await this.bumpCaseNumber(guild);
-        const logEmbed = await this.buildEmbed(mod, target, action, reason, caseNumber);
+        const logEmbed = await this.buildEmbed(mod, target, action, reason, duration, caseNumber);
         const logChannel = guild.channels.cache.get(this.client.settings.modlog);
         logChannel.send(logEmbed);
     }
