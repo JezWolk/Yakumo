@@ -4,7 +4,6 @@ const caseSchema = new Schema({
     guild_id: {
         type: String,
         required: true,
-        unique: true,
     },
     message_id: {
         type: String,
@@ -12,7 +11,7 @@ const caseSchema = new Schema({
         unique: true,
     },
     case_id: {
-        type: String,
+        type: Number,
         requried: true,
         unique: true,
     },
@@ -38,7 +37,10 @@ const caseSchema = new Schema({
     },
     reason: {
         type: String,
-        required: true,
+    },
+    duration: {
+        type: Number,
+        required: false,
     },
     createdAt: {
         type: Date,
