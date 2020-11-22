@@ -58,7 +58,7 @@ class BanCommand extends Command {
                 `);
             }
             catch { } // eslint-disable-line no-empty, brace-style
-            this.client.casesHandler.newCase(message.guild, {
+            await this.client.casesHandler.newCase(message.guild, {
                 mod: message.author,
                 target: member,
                 action: this.aliases[0],

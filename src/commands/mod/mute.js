@@ -33,11 +33,17 @@ class MuteCommand extends Command {
                         start: message => `${message.author}, how long would you like to mute this member?`,
                     },
                 },
+                {
+                    id: 'reason',
+                    match: 'rest',
+                    type: 'string',
+                    default: '',
+                },
             ],
         });
     }
 
-    async exec(message, { member, time }) {
+    async exec(message, { member, time, reason }) {
         if (member.roles.highest.rawPosition >= message.member.roles.highest.rawPosition) {
             return message.channel.send('You know you can\'t mute this member, so why bother trying.');
         }
@@ -52,6 +58,13 @@ class MuteCommand extends Command {
                 message.channel.send('There was an error while giving the muted role.');
                 console.log(error);
             }
+            await this.client.casesHandler.newCase(message.guild, {
+                mod: message.author,
+                target: member,
+                action: this.aliases[0],
+                reason: reason,
+                duration: time,
+            });
             muteMessage.edit(`Sucessfully muted **${member.user.tag}**`);
         }
         catch (error) {
