@@ -41,12 +41,30 @@ class CasesHandler {
             `));
     }
 
+    async createCaseDocument(guild, message, caseNumber, target, mod, action, reason, duration) {
+        const caseDoc = new this.caseModel({
+            guild_id: guild.id,
+            message_id: message.id,
+            case_id: caseNumber,
+            target_id: target.id,
+            target_tag: target.user.tag,
+            mod_id: mod.id,
+            mod_tag: mod.tag,
+            action: action,
+            reason: reason,
+            duration: duration,
+            createdAt: Date.now(),
+        });
+        await caseDoc.save();
+    }
+
     async newCase(guild, data) {
         const { mod, target, action, reason, duration = null } = data;
         const caseNumber = await this.bumpCaseNumber(guild);
         const logEmbed = await this.buildEmbed(mod, target, action, reason, duration, caseNumber);
         const logChannel = guild.channels.cache.get(this.client.settings.modlog);
-        logChannel.send(logEmbed);
+        const message = await logChannel.send(logEmbed);
+        await this.createCaseDocument(guild, message, caseNumber, target, mod, action, reason, duration);
     }
 }
 
