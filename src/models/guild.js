@@ -11,6 +11,11 @@ const guildSchema = new Schema({
         required: true,
         default: 0,
     },
+    settings: {
+        type: Object,
+        required: true,
+        default: {},
+    },
 });
 
 module.exports = model('guilds', guildSchema);
