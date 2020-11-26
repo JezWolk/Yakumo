@@ -1,5 +1,6 @@
-const { AkairoClient } = require('discord-akairo');
+const { AkairoClient, CommandHandler } = require('discord-akairo');
 const database = require('../structures/database.js');
+const { join } = require('path');
 
 class YakumoClient extends AkairoClient {
     constructor(config) {
@@ -10,6 +11,21 @@ class YakumoClient extends AkairoClient {
         });
 
         this.config = config;
+
+        this.commandHandler = new CommandHandler(this, {
+            directory: join(__dirname, '..', 'commands'),
+            prefix: config.prefix,
+            allowMention: true,
+            handleEdits: true,
+            commandUtil: true,
+            commandUtilLifetime: 3e5,
+        });
+
+        this.init();
+    }
+
+    init() {
+        this.commandHandler.loadAll();
     }
 
     start() {
