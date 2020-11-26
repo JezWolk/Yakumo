@@ -1,4 +1,5 @@
 const { AkairoClient } = require('discord-akairo');
+const database = require('../structures/database.js');
 
 class YakumoClient extends AkairoClient {
     constructor(config) {
@@ -13,6 +14,7 @@ class YakumoClient extends AkairoClient {
 
     start() {
         this.login(this.config.token);
+        database(this.config.mongoUri);
         console.log('Yoo this is ready!');
     }
 }
