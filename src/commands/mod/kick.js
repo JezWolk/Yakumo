@@ -36,19 +36,25 @@ class KickCommand extends Command {
             return message.channel.send('You know you can\'t kick this member, so why bother trying.');
         }
         const kickMessage = await message.channel.send(`Kicking **${member.user.tag}**...`);
-        try {
-            await member.kick([reason]);
+        if (member.kickable) {
             try {
-                await member.send(stripIndents(`
-                    You have been kicked from **${message.guild.name}**
-                    You may join back when ever you wish.
-                `));
+                try {
+                    await member.send(stripIndents(`
+                        You have been kicked from **${message.guild.name}**
+                        You may join back when ever you wish.
+                    `));
+                }
+                catch { } // eslint-disable-line no-empty, brace-style
+                await member.kick([reason]);
+                kickMessage.edit(`Sucessfully kicked **${member.user.tag}**`);
             }
-            catch { } // eslint-disable-line no-empty, brace-style
-            kickMessage.edit(`Sucessfully kicked **${member.user.tag}**`);
+            catch (error) {
+                kickMessage.edit(`There was an error when trying to kick **${member.user.tag}**`);
+                console.log(error);
+            }
         }
-        catch (error) {
-            console.log(error);
+        else {
+            kickMessage.edit('I don\'t have permissions to kick this member.');
         }
     }
 }
