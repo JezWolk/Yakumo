@@ -19,9 +19,12 @@ class ShowTagCommand extends Command {
 		});
 	}
 
-	async exec(message, { name }) {
+	async exec(message, { name }, respond = true) {
         const tag = await this.client.models.tags.findOne({ guild: message.guild.id, name: name });
-        if (!tag) return message.util.send('There is no tag with this name.');
+        if (!tag) {
+            if (respond) message.util.send('There is no tag in this guild with this name.');
+            return;
+        }
         tag.uses++;
         await tag.save();
         return message.util.send(tag.content);
