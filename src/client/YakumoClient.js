@@ -1,5 +1,6 @@
-const { AkairoClient, CommandHandler } = require('discord-akairo');
+const { AkairoClient, CommandHandler, MongooseProvider } = require('discord-akairo');
 const database = require('../structures/database.js');
+const models = require('../models/export/index.js');
 const { join } = require('path');
 
 class YakumoClient extends AkairoClient {
@@ -11,6 +12,10 @@ class YakumoClient extends AkairoClient {
         });
 
         this.config = config;
+
+        this.models = models;
+
+        this.settings = new MongooseProvider(this.models.settings);
 
         this.commandHandler = new CommandHandler(this, {
             directory: join(__dirname, '..', 'commands'),
@@ -24,7 +29,8 @@ class YakumoClient extends AkairoClient {
         this.init();
     }
 
-    init() {
+    async init() {
+        await this.settings.init();
         this.commandHandler.loadAll();
     }
 
