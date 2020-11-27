@@ -40,7 +40,7 @@ class NpmCommand extends Command {
             .setDescription(lastestVersion.description)
             .addField('Author', body.author ? body.author.name : 'Unknown', true)
             .addField('Name', body.name, true)
-            .addField('Licence', lastestVersion.license, true)
+            .addField('Licence', lastestVersion.license || 'None', true)
             .addField('Version', lastestVersion.version, true)
             .addField('Creation Date', moment(body.time.created).format('L'), true)
             .addField('Modification Date', moment(body.time.modified).format('L'), true)
