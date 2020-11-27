@@ -5,7 +5,6 @@ class MessageInvalidListener extends Listener {
 		super('messageInvalid', {
 			emitter: 'commandHandler',
 			event: 'messageInvalid',
-			category: 'commandHandler',
 		});
 	}
 

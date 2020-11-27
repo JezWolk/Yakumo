@@ -43,24 +43,22 @@ class YakumoClient extends AkairoClient {
 			if (message.attachments.first()) phrase += `\n${message.attachments.first().url}`;
 			return phrase || null;
         });
-
-        this.init();
     }
 
-    async init() {
-        await this.settings.init();
+    init() {
+        this.settings.init();
         this.listenerHandler.setEmitters({
 			commandHandler: this.commandHandler,
-			listenerHandler: this.listenerHandler,
-		});
+            listenerHandler: this.listenerHandler,
+        });
         this.commandHandler.loadAll();
         this.listenerHandler.loadAll();
     }
 
-    start() {
+    async start() {
+        await this.init();
         this.login(this.config.token);
         database(this.config.mongoUri);
-        console.log('Yoo this is ready!');
     }
 }
 
