@@ -2,6 +2,7 @@ const { AkairoClient, CommandHandler, MongooseProvider } = require('discord-akai
 const CaseHandler = require('../structures/handlers/CaseHandler.js');
 const database = require('../structures/database.js');
 const models = require('../models/export/index.js');
+const { SETTINGS } = require('../Constants.js');
 const { join } = require('path');
 
 class YakumoClient extends AkairoClient {
@@ -22,7 +23,7 @@ class YakumoClient extends AkairoClient {
 
         this.commandHandler = new CommandHandler(this, {
             directory: join(__dirname, '..', 'commands'),
-            prefix: config.prefix,
+            prefix: (message) => this.settings.items.get(message.guild.id)[SETTINGS.PREFIX] || this.config.defaultPrefix,
             allowMention: true,
             handleEdits: true,
             commandUtil: true,
