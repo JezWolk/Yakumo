@@ -20,6 +20,7 @@ class TagCommand extends Command {
             ['tag-add', 'add', 'create'],
             ['tag-del', 'del', 'delete'],
             ['tag-show', 'show', 'view'],
+            ['tag-search', 'search', 'look'],
           ],
           otherwise: 'Check `?help tag` for more information.',
         };
