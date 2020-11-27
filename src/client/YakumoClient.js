@@ -1,4 +1,4 @@
-const { AkairoClient, CommandHandler, MongooseProvider } = require('discord-akairo');
+const { AkairoClient, CommandHandler, ListenerHandler, MongooseProvider } = require('discord-akairo');
 const CaseHandler = require('../structures/handlers/CaseHandler.js');
 const database = require('../structures/database.js');
 const models = require('../models/export/index.js');
@@ -30,6 +30,8 @@ class YakumoClient extends AkairoClient {
             commandUtilLifetime: 3e5,
         });
 
+        this.listenerHandler = new ListenerHandler(this, { directory: join(__dirname, '..', 'listeners') });
+
         this.commandHandler.resolver.addType('tagName', async (message, phrase) => {
             if (!phrase) return null;
             const tag = await this.models.tags.findOne({ guild: message.guild.id, name: phrase.toLowerCase() });
@@ -47,7 +49,12 @@ class YakumoClient extends AkairoClient {
 
     async init() {
         await this.settings.init();
+        this.listenerHandler.setEmitters({
+			commandHandler: this.commandHandler,
+			listenerHandler: this.listenerHandler,
+		});
         this.commandHandler.loadAll();
+        this.listenerHandler.loadAll();
     }
 
     start() {
