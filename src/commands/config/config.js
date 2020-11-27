@@ -19,6 +19,7 @@ class ConfigCommand extends Command {
         const method = yield {
           type: [
             ['config-set', 'set'],
+            ['config-del', 'del', 'delete', 'remove'],
           ],
           otherwise: 'Check `?help config` for more information.',
         };
