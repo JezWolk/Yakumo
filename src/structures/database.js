@@ -5,6 +5,7 @@ const mongooseConnect = async (uri) => {
         useNewUrlParser: true,
         useUnifiedTopology: true,
         useFindAndModify: true,
+        autoIndex: false,
     };
 
     try {
