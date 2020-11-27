@@ -30,6 +30,18 @@ class YakumoClient extends AkairoClient {
             commandUtilLifetime: 3e5,
         });
 
+        this.commandHandler.resolver.addType('tagName', async (message, phrase) => {
+            if (!phrase) return null;
+            const tag = await this.models.tags.findOne({ guild: message.guild.id, name: phrase.toLowerCase() });
+            return tag ? null : phrase;
+        });
+
+        this.commandHandler.resolver.addType('tagContent', async (message, phrase) => {
+			if (!phrase) phrase = '';
+			if (message.attachments.first()) phrase += `\n${message.attachments.first().url}`;
+			return phrase || null;
+        });
+
         this.init();
     }
 
