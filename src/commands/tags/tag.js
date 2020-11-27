@@ -17,7 +17,8 @@ class TagCommand extends Command {
     *args() {
         const method = yield {
           type: [
-            ['tag-add', 'add'],
+            ['tag-add', 'add', 'create'],
+            ['tag-show', 'show', 'view'],
           ],
           otherwise: 'Check `?help tag` for more information.',
         };
