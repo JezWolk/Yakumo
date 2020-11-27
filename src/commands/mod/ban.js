@@ -52,6 +52,13 @@ class BanCommand extends Command {
                 }
                 catch { } // eslint-disable-line no-empty, brace-style
                 await message.guild.members.ban(user.id, { reason: reason });
+                await this.client.cases.commit(message.guild, {
+                    guild: message.guild.id,
+                    mod: message.author,
+                    target: user,
+                    action: this.id,
+                    reason: reason,
+                });
                 banMessage.edit(`Sucessfully banned **${user.tag}**`);
             }
             catch (error) {

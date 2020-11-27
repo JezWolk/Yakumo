@@ -46,6 +46,13 @@ class KickCommand extends Command {
                 }
                 catch { } // eslint-disable-line no-empty, brace-style
                 await member.kick([reason]);
+                await this.client.cases.commit(message.guild, {
+                    guild: message.guild.id,
+                    mod: message.author,
+                    target: member.user,
+                    action: this.id,
+                    reason: reason,
+                });
                 kickMessage.edit(`Sucessfully kicked **${member.user.tag}**`);
             }
             catch (error) {
