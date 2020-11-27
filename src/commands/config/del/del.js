@@ -14,6 +14,7 @@ class DelConfigCommand extends Command {
 		const key = yield {
 			type: [
                 ['config-del-modlog', 'modLog', 'modlog'],
+                ['config-del-cases', 'cases'],
 			],
 			otherwise: 'Check `?help config` for more information',
 		};
