@@ -20,7 +20,7 @@ class DelTagCommand extends Command {
 	}
 
 	async exec(message, { tag }) {
-        await this.client.models.tags.findOneAndDelete({ name: tag.name });
+        await this.client.models.tags.findOneAndDelete({ guild: message.guild.id, name: tag.name });
         message.util.send(`Successfully delete the tag **${tag.name}**.`);
 	}
 }
