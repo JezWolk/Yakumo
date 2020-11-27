@@ -13,7 +13,8 @@ class SetConfigCommand extends Command {
 	*args() {
 		const key = yield {
 			type: [
-				['config-set-modlog', 'modLog', 'modlog'],
+                ['config-set-modlog', 'modLog', 'modlog'],
+                ['config-set-cases', 'cases', 'case', 'caseNumber', 'caseNum'],
 			],
 			otherwise: 'Check `?help config` for more information',
 		};
