@@ -1,4 +1,5 @@
 const { AkairoClient, CommandHandler, MongooseProvider } = require('discord-akairo');
+const CaseHandler = require('../structures/handlers/CaseHandler.js');
 const database = require('../structures/database.js');
 const models = require('../models/export/index.js');
 const { join } = require('path');
@@ -16,6 +17,8 @@ class YakumoClient extends AkairoClient {
         this.models = models;
 
         this.settings = new MongooseProvider(this.models.settings);
+
+        this.cases = new CaseHandler(this);
 
         this.commandHandler = new CommandHandler(this, {
             directory: join(__dirname, '..', 'commands'),
