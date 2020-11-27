@@ -3,10 +3,6 @@ const { Command, Flag } = require('discord-akairo');
 class SetConfigCommand extends Command {
 	constructor() {
 		super('config-set', {
-			description: {
-				content: 'Set the configuration for the guild.',
-				usage: '<key> <...arguments>',
-			},
 			category: 'config',
 			channel: 'guild',
             userPermissions: ['MANAGE_GUILD'],

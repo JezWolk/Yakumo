@@ -4,11 +4,6 @@ const { SETTINGS } = require('../../../Constants.js');
 class SetConfigModChannelCommand extends Command {
 	constructor() {
 		super('config-set-modlog', {
-			description: {
-				content: 'Change the modlog channel of the guild!',
-				usage: '<channel>',
-				examples: ['#mod-log', 'mog-log'],
-			},
 			category: 'config',
 			channel: 'guild',
             userPermissions: ['MANAGE_GUILD'],
