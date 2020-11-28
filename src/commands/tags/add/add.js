@@ -28,6 +28,9 @@ class AddTagCommand extends Command {
 	}
 
 	async exec(message, { name, content }) {
+        if (name && name.length >= 1950) {
+            return message.util.send('The tag name length can\'t be over 1950 characters.');
+        }
         if (content && content.length >= 1950) {
             return message.util.send('The tag content length can\'t be over 1950 characters.');
         }

@@ -28,6 +28,9 @@ class AliasAddTagCommand extends Command {
 	}
 
 	async exec(message, { tag, alias }) {
+        if (alias && alias.length >= 1950) {
+            return message.util.send('The tag alias length can\'t be over 1950 characters.');
+        }
         tag.aliases.push(alias);
         tag.last_modified_by = message.author.id;
         tag.last_modified_at = new Date();
