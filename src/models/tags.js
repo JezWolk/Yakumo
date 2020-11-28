@@ -32,6 +32,14 @@ const tagsSchema = new Schema({
         type: Date,
         required: true,
     },
+    last_modified_by: {
+        type: String,
+        required: false,
+    },
+    last_modified_at: {
+        type: Date,
+        required: false,
+    },
 });
 
 module.exports = model('tags', tagsSchema);
