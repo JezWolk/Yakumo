@@ -24,6 +24,7 @@ class TagCommand extends Command {
             ['tag-edit', 'edit', 'change'],
             ['tag-alias', 'alias', 'aliases'],
             ['tag-info', 'info', 'data', 'information'],
+            ['tag-source', 'source'],
           ],
           otherwise: 'Check `?help tag` for more information.',
         };
