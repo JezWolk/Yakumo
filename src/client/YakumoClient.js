@@ -1,4 +1,4 @@
-const { AkairoClient, CommandHandler, ListenerHandler, MongooseProvider } = require('discord-akairo');
+const { AkairoClient, CommandHandler, ListenerHandler, MongooseProvider, InhibitorHandler } = require('discord-akairo');
 const CaseHandler = require('../structures/handlers/CaseHandler.js');
 const database = require('../structures/database.js');
 const models = require('../models/export/index.js');
@@ -23,7 +23,7 @@ class YakumoClient extends AkairoClient {
 
         this.commandHandler = new CommandHandler(this, {
             directory: join(__dirname, '..', 'commands'),
-            prefix: (message) => this.settings.items.get(message.guild.id)[SETTINGS.PREFIX] || this.config.defaultPrefix,
+            prefix: (message) => this.settings.get(message.guild.id, SETTINGS.PREFIX, this.config.defaultPrefix),
             allowMention: true,
             handleEdits: true,
             commandUtil: true,
@@ -31,6 +31,8 @@ class YakumoClient extends AkairoClient {
         });
 
         this.listenerHandler = new ListenerHandler(this, { directory: join(__dirname, '..', 'listeners') });
+
+        this.inhibitorHandler = new InhibitorHandler(this, { directory: join(__dirname, '..', 'inhibitors') });
 
         this.commandHandler.resolver.addType('tagName', async (message, phrase) => {
             if (!phrase) return null;
@@ -67,12 +69,15 @@ class YakumoClient extends AkairoClient {
 
     init() {
         this.settings.init();
+        this.commandHandler.useInhibitorHandler(this.inhibitorHandler);
         this.listenerHandler.setEmitters({
 			commandHandler: this.commandHandler,
             listenerHandler: this.listenerHandler,
+            inhibitorHandler: this.inhibitorHandler,
         });
         this.commandHandler.loadAll();
         this.listenerHandler.loadAll();
+        this.inhibitorHandler.loadAll();
     }
 
     async start() {
