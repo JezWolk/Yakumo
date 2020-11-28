@@ -70,6 +70,7 @@ class YakumoClient extends AkairoClient {
     init() {
         this.settings.init();
         this.commandHandler.useInhibitorHandler(this.inhibitorHandler);
+        this.commandHandler.useListenerHandler(this.listenerHandler);
         this.listenerHandler.setEmitters({
 			commandHandler: this.commandHandler,
             listenerHandler: this.listenerHandler,
