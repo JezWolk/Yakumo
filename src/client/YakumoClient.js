@@ -34,14 +34,21 @@ class YakumoClient extends AkairoClient {
 
         this.commandHandler.resolver.addType('tagName', async (message, phrase) => {
             if (!phrase) return null;
-            const tag = await this.models.tags.findOne({ guild: message.guild.id, name: phrase.toLowerCase() });
+            const tag = await this.models.tags.findOne({ guild: message.guild.id, name: phrase })   
+                || await this.models.tags.findOne({ guild: message.guild.id, aliases: phrase });
             return tag ? null : phrase;
         });
 
         this.commandHandler.resolver.addType('existingTag', async (message, phrase) => {
             if (!phrase) return null;
-            const tag = await this.models.tags.findOne({ guild: message.guild.id, name: phrase.toLowerCase() });
+            const tag = await this.models.tags.findOne({ guild: message.guild.id, name: phrase });
             return tag || null;
+        });
+
+        this.commandHandler.resolver.addType('existingTagAlias', async (message, phrase) => {
+            if (!phrase) return null;
+            const tag = await this.models.tags.findOne({ guild: message.guild.id, aliases: phrase });
+            return tag ? { tag: tag, phrase: phrase } : null;
         });
 
         this.commandHandler.resolver.addType('tagContent', async (message, phrase) => {
