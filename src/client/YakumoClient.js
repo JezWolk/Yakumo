@@ -65,6 +65,15 @@ class YakumoClient extends AkairoClient {
 			if (message.attachments.first()) phrase += `\n${message.attachments.first().url}`;
 			return phrase || null;
         });
+
+        this.commandHandler.resolver.addType('uncachedUser', async (message, phrase) => {
+            if (!phrase) return;
+            try {
+                const user = await this.users.fetch(phrase);
+                return user || null;
+            }
+            catch { } // eslint-disable-line no-empty, brace-style
+        });
     }
 
     init() {
