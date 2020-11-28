@@ -32,6 +32,11 @@ class InfoTagCommand extends Command {
             .addField('❯ Aliases', tag.aliases.length ? tag.aliases.map(a => `\`${a}\``).sort().join(', ') : 'No aliases.')
             .addField('❯ Uses', `\`${tag.uses}\``)
             .addField('❯ Created At', `\`${moment(tag.created_at).format('L')}\``);
+        if (tag.last_modified_at && tag.last_modified_by) {
+            const lastModifiedBy = await this.client.users.fetch(tag.last_modified_by);
+            embed.addField('❯ Last Modified At', `\`${moment(tag.last_modified_at).format('L')}\``);
+            embed.addField('❯ Last Modified By', `\`${lastModifiedBy.tag}\` (${lastModifiedBy.id})`);
+        }
         message.channel.send(embed);
 	}
 }
