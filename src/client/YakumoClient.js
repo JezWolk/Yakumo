@@ -51,6 +51,13 @@ class YakumoClient extends AkairoClient {
             return tag ? { tag: tag, phrase: phrase } : null;
         });
 
+        this.commandHandler.resolver.addType('existingTagOrAlias', async (message, phrase) => {
+            if (!phrase) return null;
+            const tag = await this.models.tags.findOne({ guild: message.guild.id, name: phrase })   
+                || await this.models.tags.findOne({ guild: message.guild.id, aliases: phrase });
+            return tag || null;
+        });
+
         this.commandHandler.resolver.addType('tagContent', async (message, phrase) => {
 			if (!phrase) phrase = '';
 			if (message.attachments.first()) phrase += `\n${message.attachments.first().url}`;
