@@ -28,6 +28,10 @@ const tagsSchema = new Schema({
         required: true,
         default: 0,
     },
+    created_at: {
+        type: Date,
+        required: true,
+    },
 });
 
 module.exports = model('tags', tagsSchema);
