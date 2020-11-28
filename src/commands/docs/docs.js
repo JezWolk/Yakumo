@@ -16,7 +16,7 @@ class DocsCommand extends Command {
                 {
 					id: 'query',
 					match: 'content',
-					type: 'lowercase',
+					type: 'string',
 					prompt: {
 						start: message => `${message.author}, what would you like to search?`,
                     },
