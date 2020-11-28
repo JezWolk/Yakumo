@@ -37,6 +37,7 @@ class AddTagCommand extends Command {
             user_id: message.author.id,
             name: name,
             content: content,
+            created_at: new Date(),
         }).save();
 
         message.util.send(`Successfully created the tag **${name}**.`);
