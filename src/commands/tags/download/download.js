@@ -19,7 +19,7 @@ class DownloadTagCommand extends Command {
 	}
 
 	async exec(message, { member }) {
-        const options = member ? { member: member.id, guild: message.guild.id } : { guild: message.guild.id };
+        const options = member ? { user_id: member.id, guild: message.guild.id } : { guild: message.guild.id };
         if (member) options.user_id = member.id;
         const tags = await this.client.models.tags.find(options);
         if (!tags.length) return message.util.send('No results found.');
