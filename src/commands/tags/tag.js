@@ -23,6 +23,7 @@ class TagCommand extends Command {
             ['tag-search', 'search', 'look'],
             ['tag-edit', 'edit', 'change'],
             ['tag-alias', 'alias', 'aliases'],
+            ['tag-info', 'info', 'data', 'information'],
           ],
           otherwise: 'Check `?help tag` for more information.',
         };
