@@ -31,7 +31,7 @@ class InfoTagCommand extends Command {
             .addField('❯ Guild', `\`${guild.name}\``)
             .addField('❯ Aliases', tag.aliases.length ? tag.aliases.map(a => `\`${a}\``).sort().join(', ') : 'No aliases.')
             .addField('❯ Uses', `\`${tag.uses}\``)
-            .addField('❯ Created At', `\`${moment(tag.createdAt).format('L')}\``);
+            .addField('❯ Created At', `\`${moment(tag.created_at).format('L')}\``);
         message.channel.send(embed);
 	}
 }
