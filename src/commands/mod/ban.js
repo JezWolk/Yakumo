@@ -1,4 +1,4 @@
-const { Argument, Command } = require('discord-akairo');
+const { Command } = require('discord-akairo');
 const { stripIndents } = require('common-tags');
 
 class BanCommand extends Command {
@@ -16,12 +16,7 @@ class BanCommand extends Command {
             args: [
                 {
                     id: 'user',
-                    type: Argument.union('user', async (_, input) => {
-                        try {
-                            const user = await this.client.users.fetch(input);
-                            return user || null;
-                        } catch { } // eslint-disable-line no-empty, brace-style
-                    }),
+                    type: 'uncachedUser',
                     prompt: {
                         start: message => `${message.author}, what member would you like to ban?`,
                     },
