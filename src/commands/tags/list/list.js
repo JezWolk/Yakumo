@@ -19,6 +19,7 @@ class ListTagCommand extends Command {
 
 	async exec(message, { member }) {
         const tags = await this.client.models.tags.find({ guild: message.guild.id });
+        if (!tags.length) return message.channel.send('This guild dosn\'t have any tags.');
         const embed = new MessageEmbed()
             .setColor('BLUE')
             .addField('❯ Tags', tags.map(tag => `\`${tag.name}\``).sort().join(', '));
