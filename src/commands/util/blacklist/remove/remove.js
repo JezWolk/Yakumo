@@ -1,4 +1,4 @@
-const { Command, Argument } = require('discord-akairo');
+const { Command } = require('discord-akairo');
 const { SETTINGS } = require('../../../../Constants.js');
 
 class BlacklistRemoveCommand extends Command {
@@ -11,12 +11,7 @@ class BlacklistRemoveCommand extends Command {
 			args: [
 				{
 					id: 'user',
-                    type: Argument.union('user', async (_, input) => {
-                        try {
-                            const user = await this.client.users.fetch(input);
-                            return user || null;
-                        } catch { } // eslint-disable-line no-empty, brace-style
-                    }),
+                    type: 'uncachedUser',
                     prompt: {
                         start: message => `${message.author}, who do you want to remove from blacklist?`,
                     },
