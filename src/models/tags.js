@@ -18,6 +18,11 @@ const tagsSchema = new Schema({
         type: String,
         required: true,
     },
+    aliases: {
+        type: Array,
+        required: false,
+        default: [],
+    },
     uses: {
         type: Number,
         required: true,
