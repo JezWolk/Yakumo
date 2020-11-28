@@ -3,6 +3,7 @@ module.exports = {
         MODLOG: 'modlog',
         CASES: 'caseNum',
         PREFIX: 'prefix',
+        BLACKLIST: 'blacklist',
     },
     LOG_COLORS: {
         KICK: 0xff9100,
