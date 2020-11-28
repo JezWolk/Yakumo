@@ -29,6 +29,8 @@ class AliasAddTagCommand extends Command {
 
 	async exec(message, { tag, alias }) {
         tag.aliases.push(alias);
+        tag.last_modified_by = message.author.id;
+        tag.last_modified_at = new Date();
         await tag.save();
         return message.util.send(`Successfully added the tag alias **${alias}**.`);
 	}

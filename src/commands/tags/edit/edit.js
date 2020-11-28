@@ -28,7 +28,10 @@ class EditTagCommand extends Command {
 	}
 
 	async exec(message, { tag, content }) {
-        await this.client.models.tags.findOneAndUpdate({ guild: message.guild.id, name: tag.name }, { content: content });
+        tag.content = content;
+        tag.last_modified_by = message.author.id;
+        tag.last_modified_at = new Date();
+        await tag.save();
         message.util.send(`Now updated the content of the tag **${tag.name}**.`);
 	}
 }
