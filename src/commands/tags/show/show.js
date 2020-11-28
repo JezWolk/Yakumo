@@ -10,7 +10,7 @@ class ShowTagCommand extends Command {
 				{
 					id: 'name',
 					match: 'content',
-					type: 'lowercase',
+					type: 'string',
 					prompt: {
 						start: (message) => `${message.author}, what tag would you like to show?`,
 					},
@@ -20,7 +20,8 @@ class ShowTagCommand extends Command {
 	}
 
 	async exec(message, { name }, respond = true) {
-        const tag = await this.client.models.tags.findOne({ guild: message.guild.id, name: name });
+        const tag = await this.client.models.tags.findOne({ guild: message.guild.id, name: name }) 
+            || await this.client.models.tags.findOne({ guild: message.guild.id, aliases: name });
         if (!tag) {
             if (respond) message.util.send('There is no tag in this guild with this name.');
             return;
